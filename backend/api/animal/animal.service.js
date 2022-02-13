@@ -9,6 +9,15 @@ async function getAllAnimals(){
     }
 }
 
+async function getSpecificAnimal(id) {
+    try {
+        const animal = await Animal.findById(id);
+        return animal
+    } catch(error) {
+        throw error;
+    }
+}
+
 async function createAnimal(animal){
     try {
         const newAnimal = new Animal(animal);
@@ -21,5 +30,6 @@ async function createAnimal(animal){
 
 module.exports = {
     getAllAnimals,
+    getSpecificAnimal,
     createAnimal,
 }
