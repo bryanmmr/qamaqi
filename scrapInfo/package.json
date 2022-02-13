@@ -1,0 +1,25 @@
+{
+  "name": "scrapinfo",
+  "version": "1.0.0",
+  "description": "Get information to save into the MongoDB database",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wildlife",
+    "js",
+    "node"
+  ],
+  "author": "Bryan Manzano",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "cheerio": "^1.0.0-rc.10",
+    "request": "^2.88.2"
+  },
+  "volta": {
+    "node": "16.13.0"
+  }
+}
