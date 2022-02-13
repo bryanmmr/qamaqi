@@ -60,7 +60,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 					}
 				})
 			})
-			//console.log(JSON.stringify(animalMainInfo))
+			//console.log(animalMainInfo)
 
 			/**
 			 * GET SCIENTIFIC NAME OF THE ANIMAL
@@ -92,6 +92,8 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 				animalMainParagraph.push(dataScrapped);
 			});
 			//console.log(animalMainParagraph);
+		}).catch((error) => {
+			console.error(error)
 		});
 	/* POST ELEMENTS TO DATABASE
 		const animalInfo = { 
