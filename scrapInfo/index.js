@@ -40,7 +40,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 					dataScrapped === status[1].title?animalConservationStatus.push($(elem).text()):null;
 				})
 			});
-
+			//console.log(animalConservationStatus[0])
 			/**
 			 * GET SCIENTIFIC CLASSIFICATION OF THE ANIMAL
 			 */
@@ -79,7 +79,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 			const animalMapArea = [];
 			const getanimalMapArea = $("table.infobox.biota tbody tr td a.image").each(function(i, elem) {
 				const dataScrapped = $(elem).find('img');
-				animalMapArea.push({ src : dataScrapped.attr('src'), alt : dataScrapped.attr('alt') });
+				animalMapArea.push({ folder: "Mammals", image : `https:${dataScrapped.attr('src')}`, alt : dataScrapped.attr('alt') });
 			});
 			//console.log(animalMapArea);
 
@@ -92,14 +92,71 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 				animalMainParagraph.push(dataScrapped);
 			});
 			//console.log(animalMainParagraph);
+
+			
+			const tmpImage = []
+			animalMapArea.forEach((image)=> {
+				const clientOptions = {
+					uri: `http://127.0.0.1:8080/upload/image`,
+					body: JSON.stringify(image),
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+				request(clientOptions, (error, response) => {
+					const res = JSON.parse(response.body)
+					tmpImage.push({
+						src: res.secure_url,
+						alt: image.alt
+					})
+					//console.log(error, response)
+					const animalInfo = {
+						name: animal,
+						link: animalLinks[index],
+						conservationStatus: animalConservationStatus[0],
+						scientificName: animalScientificName[0],
+						scientificClassification: animalMainInfo,
+						img: tmpImage,
+						animalInfo: animalMainParagraph
+					};
+
+					const getAnimalOptions = {
+						uri: `http://127.0.0.1:8080/api/animal/specific/${animalInfo.name}`,
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					}
+					request(getAnimalOptions, (error, response) => {
+						const newAnimalData = JSON.parse(response.body)
+						const getMethod = newAnimalData.id?'PATCH':'POST';
+						const idToPatch = newAnimalData.id?`/${newAnimalData.id}`:'/';
+						const clientOptions = {
+							uri: `http://127.0.0.1:8080/api/animal${idToPatch}`,
+							body: JSON.stringify(animalInfo),
+							method: getMethod,
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}
+						request(clientOptions, (error, response) => {
+							console.log(error, response)
+							return;
+						})
+						
+						return;
+					})
+					return;
+				})
+			})
+			
+			
 		}).catch((error) => {
 			console.error(error)
 		});
-	/* POST ELEMENTS TO DATABASE
-		const animalInfo = { 
-			name: animal,
-			link: animalLinks[index]
-		}
+	/* POST ELEMENTS TO DATABASE */
+		
 		/*
 		const clientOptions = {
 			uri: `http://127.0.0.1:8080/api/animal/`,

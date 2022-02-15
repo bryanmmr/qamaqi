@@ -18,6 +18,15 @@ async function getSpecificAnimal(id) {
     }
 }
 
+async function getSpecificAnimalByName(name) {
+    try {
+        const animal = await Animal.findOne({name : name});
+        return animal
+    } catch(error) {
+        throw error;
+    }
+}
+
 async function createAnimal(animal){
     try {
         const newAnimal = new Animal(animal);
@@ -28,8 +37,29 @@ async function createAnimal(animal){
     }
 }
 
+async function updateAnimal(id, animal){
+    try {
+        const updatedAnimal = await Animal.findByIdAndUpdate(id, animal);
+        return updatedAnimal;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function deleteAnimal(id) {
+    try {
+      const deletedAnimal = await Animal.findByIdAndDelete(id);
+      return deletedAnimal;
+    } catch (error) {
+      throw error;
+    }
+}
+
 module.exports = {
     getAllAnimals,
     getSpecificAnimal,
+    getSpecificAnimalByName,
     createAnimal,
+    updateAnimal,
+    deleteAnimal,
 }

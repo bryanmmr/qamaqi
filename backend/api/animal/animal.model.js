@@ -14,11 +14,11 @@ const AnimalSchema = new Schema({
   conservationStatus: {
     type: String,
   },
+  scientificName: {
+    type: String,
+  },
   scientificClassification: [
-    {
-      title: String,
-      classification: String,
-    }
+    {}
   ],
   img: [
     {
