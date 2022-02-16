@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
+import { Auth0Provider } from "@auth0/auth0-react";
 import reportWebVitals from './reportWebVitals';
 
-const theme = extendTheme({ 
+const theme = extendTheme({
   colors: {
     900: '#1a365d',
     800: '#153e75',
@@ -20,9 +20,15 @@ const theme = extendTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <Auth0Provider
+      domain="dev-cpifyj02.us.auth0.com"
+      clientId="ZV1jXYonVwFKUP4NjzuVhdw16cQkH2Mu"
+      redirectUri={window.location.origin}
+    >
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
