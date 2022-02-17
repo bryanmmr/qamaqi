@@ -6,6 +6,7 @@ const {
     getAnimalByIdHandler,
     getAnimalByNameHandler,
     updateAnimalHandler,
+    deleteAnimalHandler,
 } = require('./animal.controller');
 
 const router = Router();
@@ -15,5 +16,6 @@ router.get('/:id', getAnimalByIdHandler);
 router.get('/specific/:name', getAnimalByNameHandler);
 router.post('/', createAnimalHandler);
 router.patch('/:id', updateAnimalHandler);
+router.delete('/:id', deleteAnimalHandler)
 
 module.exports = router;

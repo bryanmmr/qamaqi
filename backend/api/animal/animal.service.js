@@ -1,8 +1,8 @@
 const Animal = require('./animal.model');
 
-async function getAllAnimals(){
+async function getAllAnimals(page){
     try{
-        const animals = await Animal.find();
+        const animals = await Animal.find().limit(10).skip(10*page)
         return animals
     } catch(error){
         throw error;

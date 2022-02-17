@@ -1,12 +1,10 @@
 import axios from 'axios';
 import AnimalData from '../types/AnimalData'
 
+//const fetcher: Fetcher<string, AnimalData> = async (url:string) => await axios.get<AnimalData>(url)
+
 export const getFirstTenAnimals = async () => {
-  const response = await axios.get<AnimalData>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/`, {
-    params: {
-      _limit: 10
-     }
-  });
+  const response = await axios.get<Array<AnimalData>>(`${process.env.REACT_APP_BACKEND_URL}/api/animal?page=1`);
   return response
 }
 

@@ -4,6 +4,6 @@ export default interface AnimalData {
   link: string
   conservationStatus: string,
   scientificName: string,
-  img: Array<{src: string, alt: string}>,
+  img: Array<{src: string, alt: string, _id: string}>,
   animalInfo:Array<string>
 }

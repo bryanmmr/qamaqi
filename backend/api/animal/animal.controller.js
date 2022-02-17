@@ -8,8 +8,9 @@ const {
 } = require('./animal.service');
 
 async function getAllAnimalsHandler(req, res) {
+  const { page } = req.query
   try {
-    const animals = await getAllAnimals();
+    const animals = await getAllAnimals(page);
     if(animals.length === 0) {
         return res.status(404).json({message : `no animals found`});
     }
@@ -71,10 +72,24 @@ async function updateAnimalHandler(req, res) {
   }
 }
 
+async function deleteAnimalHandler(req, res) {
+  const { id } = req.params;
+  try {
+    const animal = await deleteAnimal(id)
+    if(!animal){
+      return res.status(404).json({response: `Animal not found`})
+    }
+    return res.status(200);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
 module.exports = {
   getAllAnimalsHandler,
   getAnimalByIdHandler,
   getAnimalByNameHandler,
   createAnimalHandler,
   updateAnimalHandler,
+  deleteAnimalHandler,
 }
