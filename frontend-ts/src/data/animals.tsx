@@ -8,7 +8,13 @@ export const getFirstTenAnimals = async () => {
   return response
 }
 
-export const getSpecificAnimal = async () => {
+export const getFeaturedAnimal = async () => {
   const response = await axios.get<AnimalData>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/620b0695f4505dd707339f06`);
   return response
 }
+
+export const getSpecificAnimal = async (name:string) => {
+  const response = await axios.get<AnimalData>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/specific/${name}`);
+  return response
+}
+

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box, Text, Button, Image } from '@chakra-ui/react'
 import AnimalData from './../types/AnimalData'
-
+import {Link} from 'react-router-dom'
 interface Animal{
   animal: AnimalData
 }
@@ -17,8 +17,10 @@ const AnimalCard = (props:Animal) => {
             fallbackSrc='https://res.cloudinary.com/dgjg2y07o/image/upload/v1644963093/loading/Spinner-1s-200px_ndygxl.svg'
             borderRadius={'25px 25px 0 0'}
             />
-      <Text fontSize={'2rem'} padding={'1rem'} fontWeight={'900'}>{props.animal.name}</Text>
-      <Button bgColor={'#2f847c'} color={'#fff'} margin={'1rem'}>More Info Here!</Button>
+      <Text fontSize={'2rem'} padding={'1rem'} fontWeight={'900'} whiteSpace={'nowrap'} overflow={'hidden'} textOverflow={'clip'}>{props.animal.name}</Text>
+      <Link to={`/${props.animal?.scientificClassification[2].Class}/${props.animal?.name}`}>
+        <Button bgColor={'#2f847c'} color={'#fff'} margin={'1rem'} >More Info Here!</Button>
+      </Link>
     </Box>
   )
 }

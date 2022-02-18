@@ -2,13 +2,14 @@ import {
   Box, Text, Container, Flex, Skeleton, Image, Stack, Button
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
-import { getSpecificAnimal } from '../data/animals';
+import { Link } from 'react-router-dom';
+import { getFeaturedAnimal } from '../data/animals';
 import AnimalData from '../types/AnimalData';
 
 const FeaturedAnimal = () => {
   const [animal, setAnimals] = useState<AnimalData>()
   useEffect(() => {
-    getSpecificAnimal().then(
+    getFeaturedAnimal().then(
       (response:{data:AnimalData})=>{
         setAnimals(response.data)
       }
@@ -33,7 +34,9 @@ const FeaturedAnimal = () => {
               </Text>
             </Box>
             <Stack>
-              <Button bgColor={'#2f847c'} color={'#fff'}>More Info</Button>
+              <Link to={`/${animal?.scientificClassification[2].Class}/${animal?.name}`}>
+                <Button bgColor={'#2f847c'} color={'#fff'} marginLeft={'1rem'}>More Info</Button>
+              </Link>
             </Stack>
           </Container>
           <Image

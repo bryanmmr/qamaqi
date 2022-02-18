@@ -14,13 +14,16 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Logo } from './../assets/Logo'
+import { Link } from "react-router-dom";
 
 const Header: React.FC = (): JSX.Element => {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
   return (
     <Flex justifyContent={'space-between'} alignItems={'center'} bgColor={'#fff'} padding='4' borderBottom={'1px solid #efefef'}>
-      <Logo boxSize="20" color="black" />
+      <Link to='/'>
+        <Logo boxSize="20" color="black" />
+      </Link>
       <Box>
         <Flex
           bg={useColorModeValue('white', 'gray.800')}

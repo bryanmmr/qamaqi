@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { getFirstTenAnimals } from '../data/animals';
 import AnimalData from '../types/AnimalData'
 import AnimalCard from '../Components/AnimalCard';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
   const [mammals, setMammals] = useState<Array<AnimalData>>()
@@ -42,6 +43,11 @@ function LandingPage() {
           <AnimalCard animal={mammal} key={mammal._id}/>
         ))
       }
+      </Flex>
+      <Flex justifyContent={'center'}>
+        <Link to={'/Mammalia'}>
+          <Button bgColor={'#2f847c'} color={'#fff'} margin={{base:'0rem',lg:'1rem'}}>Find More Mammals Here!</Button>
+        </Link>
       </Flex>
     </Box>
 

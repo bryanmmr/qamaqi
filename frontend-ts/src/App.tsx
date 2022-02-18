@@ -6,6 +6,10 @@ import { Box, Container } from "@chakra-ui/react";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import LandingPage from "./pages/LandingPage";
+import ClassSearch from './pages/ClassSearch';
+import { Route, Routes } from 'react-router-dom';
+import NotFound from './pages/NotFound';
+import Animal from './pages/Animal';
 
 function App() {
   return (
@@ -18,7 +22,12 @@ function App() {
         bgColor={'#fff'}
         minH={'100vh'}>
           <Header />
-          <LandingPage />
+          <Routes>
+            <Route path='/' element={<LandingPage />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/:class' element={<ClassSearch />} />
+            <Route path='/:class/:animalname' element={<Animal />} />
+          </Routes>
           <Footer />
       </Container>
     </Box>

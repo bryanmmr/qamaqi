@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 const theme = extendTheme({
@@ -20,15 +21,17 @@ const theme = extendTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="dev-cpifyj02.us.auth0.com"
-      clientId="ZV1jXYonVwFKUP4NjzuVhdw16cQkH2Mu"
-      redirectUri={window.location.origin}
-    >
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </Auth0Provider>
+    <BrowserRouter>
+      <Auth0Provider
+        domain="dev-cpifyj02.us.auth0.com"
+        clientId="ZV1jXYonVwFKUP4NjzuVhdw16cQkH2Mu"
+        redirectUri={window.location.origin}
+      >
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </Auth0Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
