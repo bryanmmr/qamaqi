@@ -6,7 +6,7 @@ const options = {
   method: 'POST',
   url: 'https://dev-cpifyj02.us.auth0.com/oauth/token',
   headers: { 'content-type': 'application/json' },
-  body: '{"client_id":"24oLvfSpUeh2JkHmikMDUSrWkXxsITF7","client_secret":"R16OyeLx1wk74zm8e6b1zhnHrzJwToPhyZnslPcGdYh6IQub8f7HDqWb2hJHqVeT","audience":"https://dev-cpifyj02.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
+  body: '{"client_id": process.env.REACT_APP_AUTH0_CLIENT_ID,"client_secret": process.env.REACT_APP_AUTH0_SECRET,"audience":process.env.REACT_APP_AUTH0_AUDIENCE,"grant_type":"client_credentials"}'
 };
 
 export const requestAuth = () => {
