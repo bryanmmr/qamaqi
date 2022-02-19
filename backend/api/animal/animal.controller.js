@@ -2,6 +2,7 @@ const {
   getAllAnimals,
   getSpecificAnimal,
   getSpecificAnimalByName,
+  getAllAnimalsByClass,
   createAnimal,
   updateAnimal,
   deleteAnimal
@@ -46,6 +47,20 @@ async function getAnimalByNameHandler(req, res){
   }
 }
 
+async function getAnimalByClassHandler(req, res){
+  const { animalClass } = req.params
+  const { page } = req.query
+  try {
+    const animals = await getAllAnimalsByClass(animalClass, page);
+    if(animals){
+      return res.status(200).json(animals)
+    }
+    return res.status(404).json({message : `No animals Found`})
+  } catch (error){
+    return res.status(500).json({error: error.message})
+  }
+}
+
 async function createAnimalHandler(req, res) {
   const { name } = req.body;
   try{
@@ -60,9 +75,9 @@ async function createAnimalHandler(req, res) {
 }
 
 async function updateAnimalHandler(req, res) {
-  const { id } = req.body;
+  const { _id } = req.body;
   try {
-    const animal = await updateAnimal(id, req.body)
+    const animal = await updateAnimal(_id, req.body)
     if(!animal){
       return res.status(404).json({response: `Animal not found`})
     }
@@ -89,6 +104,7 @@ module.exports = {
   getAllAnimalsHandler,
   getAnimalByIdHandler,
   getAnimalByNameHandler,
+  getAnimalByClassHandler,
   createAnimalHandler,
   updateAnimalHandler,
   deleteAnimalHandler,

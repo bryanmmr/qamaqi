@@ -19,13 +19,20 @@ const theme = extendTheme({
   },
 })
 
+const domain:string = process.env.REACT_APP_AUTH0_DOMAIN || '';
+const clientId:string = process.env.REACT_APP_AUTH0_CLIENT_ID || '';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Auth0Provider
-        domain="dev-cpifyj02.us.auth0.com"
-        clientId="ZV1jXYonVwFKUP4NjzuVhdw16cQkH2Mu"
+        domain={domain}
+        clientId={clientId}
         redirectUri={window.location.origin}
+        audience={'https://dev-cpifyj02.us.auth0.com/api/v2/'}
+        scope={'read:current_user update:current_user_metadata'}
+        useRefreshTokens
+        cacheLocation='localstorage'
       >
         <ChakraProvider theme={theme}>
           <App />

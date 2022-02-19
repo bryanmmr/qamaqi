@@ -8,6 +8,7 @@ const {
     createAnimalHandler,
     getAnimalByIdHandler,
     getAnimalByNameHandler,
+    getAnimalByClassHandler,
     updateAnimalHandler,
     deleteAnimalHandler,
 } = require('./animal.controller');
@@ -52,6 +53,19 @@ router.get('/:id', getAnimalByIdHandler);
  *      description: Get animal by name 
  */
 router.get('/specific/:name', getAnimalByNameHandler);
+
+/**
+ * @openapi
+ * /api/animal/class/:name:
+ *  get:
+ *   tags:
+ *   - animals
+ *   description: Get all animals by class
+ *   responses:
+ *    200:
+ *      description: Get animals by class 
+ */
+ router.get('/class/:animalClass', getAnimalByClassHandler);
 
 /**
  * @openapi

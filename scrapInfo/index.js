@@ -118,7 +118,8 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 						scientificName: animalScientificName[0],
 						scientificClassification: animalMainInfo,
 						img: tmpImage,
-						animalInfo: animalMainParagraph
+						animalInfo: animalMainParagraph,
+						active: true
 					};
 
 					const getAnimalOptions = {

@@ -27,6 +27,15 @@ async function getSpecificAnimalByName(name) {
     }
 }
 
+async function getAllAnimalsByClass(animalClass, page){
+    try {
+        const animals = await Animal.find({ "scientificClassification.Class" : animalClass}).limit(10).skip(10*page)
+        return animals
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function createAnimal(animal){
     try {
         const newAnimal = new Animal(animal);
@@ -59,6 +68,7 @@ module.exports = {
     getAllAnimals,
     getSpecificAnimal,
     getSpecificAnimalByName,
+    getAllAnimalsByClass,
     createAnimal,
     updateAnimal,
     deleteAnimal,

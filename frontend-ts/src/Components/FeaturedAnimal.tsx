@@ -22,16 +22,16 @@ const FeaturedAnimal = () => {
         <Flex flexDir={{base:'column-reverse', md:'row'}}>
           <Container >
             <Box marginBottom={'1rem'}>
-              <Text fontSize={{base:'1.5rem',lg:'2rem'}} paddingLeft={'1rem'} fontWeight={'900'}>
+              <Box fontSize={{base:'1.5rem',lg:'2rem'}} paddingLeft={'1rem'} fontWeight={'900'}>
                 {animal?
                   animal.name:
                   <Skeleton height='20px' />}
-              </Text>
-              <Text fontSize={'1rem'} paddingLeft={'1rem'} fontWeight={'500'}>
+              </Box>
+              <Box fontSize={'1rem'} paddingLeft={'1rem'} fontWeight={'500'}>
                 {animal?
                   animal.scientificName:
                   <Skeleton height='20px' />}
-              </Text>
+              </Box>
             </Box>
             <Stack>
               <Link to={`/${animal?.scientificClassification[2].Class}/${animal?.name}`}>

@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Text,
   Button,
   Stack,
   useColorModeValue,
@@ -12,13 +13,26 @@ import {
   Portal
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useEffect } from 'react';
 import { Logo } from './../assets/Logo'
 import { Link } from "react-router-dom";
 
 const Header: React.FC = (): JSX.Element => {
-  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
-
+  const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  useEffect(() => {
+    const setToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
+          scope: 'read:current_user',
+        });
+        sessionStorage.setItem('token', accessToken);
+      } catch (e: any) {
+        console.log(e?.message)
+      }
+    }
+    setToken()
+  }, [getAccessTokenSilently, user?.sub])
   return (
     <Flex justifyContent={'space-between'} alignItems={'center'} bgColor={'#fff'} padding='4' borderBottom={'1px solid #efefef'}>
       <Link to='/'>
@@ -39,6 +53,9 @@ const Header: React.FC = (): JSX.Element => {
               </MenuButton>
               <Portal>
                 <MenuList>
+                  <Link to='/user'>
+                    <MenuItem>My Information</MenuItem>
+                  </Link>
                   <MenuItem
                     onClick={() => logout({ returnTo: window.location.origin })}>
                       Sign Out

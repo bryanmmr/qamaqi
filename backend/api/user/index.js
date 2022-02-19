@@ -1,4 +1,5 @@
 const { Router } = require("express")
+const { isAuthenticated } = require("../../auth/auth.services")
 
 const {
     getAllUsersHandler,
@@ -8,7 +9,7 @@ const {
 
 const router = Router()
 
-router.get('/', getAllUsersHandler)
+router.get('/', isAuthenticated(), getAllUsersHandler)
 router.get('/:id', getUserHandler)
 router.post('/', createUserHandler);
 

@@ -10,6 +10,7 @@ import ClassSearch from './pages/ClassSearch';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Animal from './pages/Animal';
+import UserData from './pages/User';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<LandingPage />} />
+            <Route path='/user' element={<UserData />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/:class' element={<ClassSearch />} />
             <Route path='/:class/:animalname' element={<Animal />} />

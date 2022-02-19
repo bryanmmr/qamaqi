@@ -9,5 +9,13 @@ export default interface AnimalData {
   scientificName: string,
   scientificClassification: Array<SciClass>,
   img: Array<{src: string, alt: string, _id: string}>,
-  animalInfo:Array<string>
+  animalInfo:Array<string>,
+  active: boolean,
+  comments: Array<{
+    user_email: string,
+    profile_pic: string,
+    comment: string,
+    allow: boolean,
+    username: string
+  }>
 }

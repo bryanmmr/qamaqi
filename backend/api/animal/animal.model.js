@@ -28,6 +28,22 @@ const AnimalSchema = new Schema({
   ],
   animalInfo: [
     String
+  ],
+  active: {
+    type: Boolean,
+    default: false
+  },
+  comments: [
+    {
+      user_email: String,
+      username: String,
+      profile_pic: String,
+      comment: String,
+      allow: {
+        type: Boolean,
+        default: false
+      }
+    }, {id: false}
   ]
 });
 
