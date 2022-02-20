@@ -18,7 +18,7 @@ const AnimalCard = (props:Animal) => {
             borderRadius={'25px 25px 0 0'}
             />
       <Text fontSize={'2rem'} padding={'1rem'} fontWeight={'900'} whiteSpace={'nowrap'} overflow={'hidden'} textOverflow={'clip'}>{props.animal.name}</Text>
-      <Link to={`/${props.animal?.scientificClassification[2].Class}/${props.animal?.name}`}>
+      <Link to={`/classification/${props.animal?.scientificClassification[2].Class}/${props.animal?.name}`}>
         <Button bgColor={'#2f847c'} color={'#fff'} margin={'1rem'} >More Info Here!</Button>
       </Link>
     </Box>

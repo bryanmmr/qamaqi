@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Animal from './pages/Animal';
 import UserData from './pages/User';
+import Classification from './pages/Classification';
 
 function App() {
   return (
@@ -26,9 +27,10 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/user' element={<UserData />} />
+            <Route path='/classification'  element={<Classification />} />
             <Route path='*' element={<NotFound />} />
-            <Route path='/:class' element={<ClassSearch />} />
-            <Route path='/:class/:animalname' element={<Animal />} />
+            <Route path='/classification/:class' element={<ClassSearch />} />
+            <Route path='/classification/:class/:animalname' element={<Animal />} />
           </Routes>
           <Footer />
       </Container>

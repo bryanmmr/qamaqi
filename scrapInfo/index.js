@@ -7,7 +7,7 @@ const { conservationStatus } = require('./info/animalInfo');
 const { scientificClassification } = require('./info/classification');
 
 
-axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function(response) {
+axios.get("https://en.wikipedia.org/wiki/List_of_birds_of_Peru").then(function(response) {
    
     const $ = cheerio.load(response.data);
 
@@ -23,7 +23,8 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
     /* Getting Mammals*/
     const animals = [];
     const animalLinks = [];
-    const listAnimals = $("ul li ul li ul li ul li a").each(function(i, elem) {
+    //const listAnimals = $("ul li ul li ul li ul li a").each(function(i, elem) {
+	const listAnimals = $("div.mw-parser-output div.div-col ul li a").each(function(i, elem) { 
         animals.push($(elem).text());
         animalLinks.push('https://en.wikipedia.org'+$(elem).attr("href"));
     });
@@ -79,7 +80,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 			const animalMapArea = [];
 			const getanimalMapArea = $("table.infobox.biota tbody tr td a.image").each(function(i, elem) {
 				const dataScrapped = $(elem).find('img');
-				animalMapArea.push({ folder: "Mammals", image : `https:${dataScrapped.attr('src')}`, alt : dataScrapped.attr('alt') });
+				animalMapArea.push({ folder: "Birds", image : `https:${dataScrapped.attr('src')}`, alt : dataScrapped.attr('alt') });
 			});
 			//console.log(animalMapArea);
 
@@ -121,7 +122,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 						animalInfo: animalMainParagraph,
 						active: true
 					};
-
+					console.log(animalInfo)
 					const getAnimalOptions = {
 						uri: `http://127.0.0.1:8080/api/animal/specific/${animalInfo.name}`,
 						method: 'GET',
@@ -130,7 +131,7 @@ axios.get("https://en.wikipedia.org/wiki/List_of_mammals_of_Peru").then(function
 						}
 					}
 					request(getAnimalOptions, (error, response) => {
-						const newAnimalData = JSON.parse(response.body)
+						const newAnimalData = JSON.parse(response?.body) || {}
 						const getMethod = newAnimalData.id?'PATCH':'POST';
 						const idToPatch = newAnimalData.id?`/${newAnimalData.id}`:'/';
 						const clientOptions = {

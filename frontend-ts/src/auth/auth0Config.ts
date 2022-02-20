@@ -1,40 +1,11 @@
-import { Authtypes } from "./authTypes";
+import axios from 'axios';
 
-const request = require("request");
-
-const options = {
-  method: 'POST',
-  url: 'https://dev-cpifyj02.us.auth0.com/oauth/token',
-  headers: { 'content-type': 'application/json' },
-  body: '{"client_id":"24oLvfSpUeh2JkHmikMDUSrWkXxsITF7","client_secret":"R16OyeLx1wk74zm8e6b1zhnHrzJwToPhyZnslPcGdYh6IQub8f7HDqWb2hJHqVeT","audience":"https://dev-cpifyj02.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
-};
-
-export const requestAuth = () => {
-  request(options, function (error:string, response:{}, body:{}) {
-    if (error) throw new Error(error);
-
-    console.log(body);
-
-    return(body)
-  });
-
-}
-
-
-export const saveUserData = async (user:Authtypes) => {
-  const dataToPost = {
-    email : user?.email,
-    email_verified : user?.email_verified,
-    nickname : user?.nickname,
-    password: user?.updated_at,
-    picture : user?.picture,
-  }
-  const saveUser = await fetch('/user', {
-    method: 'POST',
+export const getCommentManagePermission = async () => {
+  const token = sessionStorage.getItem('token');
+  const response = await axios.get<string>(`${process.env.REACT_APP_BACKEND_URL}/api/role`, {
     headers: {
-      'Content-Type' : 'application/json'
-    },
-    body: JSON.stringify(dataToPost),
+      'Authorization' : `Bearer ${token}`
+    }
   });
-  return saveUser.json();
+  return response
 }

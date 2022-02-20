@@ -7,13 +7,8 @@ import ConservationStatus from "../Components/ConservationStatus"
 import Comments, { AnimalType } from "../Components/Comments"
 import { useAuth0 } from "@auth0/auth0-react"
 
-interface Params {
-  animalname: string
-}
-
 const Animal = () => {
   const { animalname } = useParams()
-  const className = useParams().class
   const [animal, setAnimal] = useState<AnimalData>()
   const {user, isAuthenticated} = useAuth0()
   const handleNewComment = (e:any) => {

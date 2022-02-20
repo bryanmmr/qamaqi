@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Text,
   Button,
   Stack,
   useColorModeValue,
@@ -16,17 +15,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from 'react';
 import { Logo } from './../assets/Logo'
 import { Link } from "react-router-dom";
+import { Dispatch } from "react";
+import { useDispatch } from "react-redux";
+import { fetchRole } from "../store/actions/userActions";
 
 const Header: React.FC = (): JSX.Element => {
+  const dispatch : Dispatch<any> = useDispatch()
   const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   useEffect(() => {
     const setToken = async () => {
       try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`,
-          scope: 'read:current_user',
-        });
+        const accessToken = await getAccessTokenSilently();
         sessionStorage.setItem('token', accessToken);
+        dispatch(fetchRole())
       } catch (e: any) {
         console.log(e?.message)
       }

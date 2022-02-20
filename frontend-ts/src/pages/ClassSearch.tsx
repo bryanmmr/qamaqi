@@ -12,7 +12,7 @@ const ClassSearch = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [animalClass, setAnimalClass] = useState<Array<AnimalData>>()
   const animalClassReceived = useParams().class;
-  const { data } = useSWR<{data:Array<AnimalData>}>(`${process.env.REACT_APP_BACKEND_URL}/api/animal?page=${pageIndex}`, fetcher);
+  const { data } = useSWR<{data:Array<AnimalData>}>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/class/${animalClassReceived}?page=${pageIndex}`, fetcher);
   useEffect(() => {
     setAnimalClass(data?.data)
   }, [data])

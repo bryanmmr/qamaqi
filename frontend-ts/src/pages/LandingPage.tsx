@@ -32,7 +32,9 @@ function LandingPage() {
           <Text fontSize={{base:'1.5rem',lg:'2rem'}} padding={{base:'.5rem',lg:'1rem'}} fontWeight={'900'}>
             Get information about some native animals of Peru and other SouthAmerican countries
           </Text>
-          <Button bgColor={'#2f847c'} color={'#fff'} margin={{base:'0rem',lg:'1rem'}}>Try it!</Button>
+          <Link to='/classification'>
+            <Button bgColor={'#2f847c'} color={'#fff'} margin={{base:'0rem',lg:'1rem'}}>Find Animals by its Class!</Button>
+          </Link>
         </Container>
       </Flex>
       <FeaturedAnimal />
@@ -45,7 +47,7 @@ function LandingPage() {
       }
       </Flex>
       <Flex justifyContent={'center'}>
-        <Link to={'/Mammalia'}>
+        <Link to={'/classification/Mammalia'}>
           <Button bgColor={'#2f847c'} color={'#fff'} margin={{base:'0rem',lg:'1rem'}}>Find More Mammals Here!</Button>
         </Link>
       </Flex>

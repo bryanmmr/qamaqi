@@ -34,7 +34,7 @@ const FeaturedAnimal = () => {
               </Box>
             </Box>
             <Stack>
-              <Link to={`/${animal?.scientificClassification[2].Class}/${animal?.name}`}>
+              <Link to={`/classification/${animal?.scientificClassification[2].Class}/${animal?.name}`}>
                 <Button bgColor={'#2f847c'} color={'#fff'} marginLeft={'1rem'}>More Info</Button>
               </Link>
             </Stack>
