@@ -19,7 +19,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:8080',
+      url: process.env.URI,
       description: 'Development server',
     },
   ],
@@ -39,7 +39,7 @@ function swaggerDocs(app, port) {
     res.setHeader('Content-Type', 'application/json')
     res.send(swaggerSpec)
   })
-  console.log(`📃🛠 Docs available at http://localhost:${port}/docs`)
+  console.log(`📃🛠 Docs available at ${process.env.URI}/docs`)
 }
 
 module.exports = swaggerDocs

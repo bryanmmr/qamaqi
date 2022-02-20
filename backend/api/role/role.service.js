@@ -17,8 +17,12 @@ const authorizeAccessToken = jwt({
 const checkPermissions = jwtAuthz(["delete:comments"], {
     customScopeKey: "permissions"
 })
+const checkCreatePermissions = jwtAuthz(["create:animals"], {
+    customScopeKey: "permissions"
+})
 
 module.exports = {
     checkPermissions,
     authorizeAccessToken,
+    checkCreatePermissions,
 }

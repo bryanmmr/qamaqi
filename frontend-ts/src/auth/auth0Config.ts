@@ -9,3 +9,14 @@ export const getCommentManagePermission = async () => {
   });
   return response
 }
+
+
+export const getCreateAuthorization = async () => {
+  const token = sessionStorage.getItem('token');
+  const response = await axios.get<string>(`${process.env.REACT_APP_BACKEND_URL}/api/role/create`, {
+    headers: {
+      'Authorization' : `Bearer ${token}`
+    }
+  });
+  return response
+}

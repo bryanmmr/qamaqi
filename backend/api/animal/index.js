@@ -22,6 +22,12 @@ const router = Router();
  *   tags:
  *   - animals
  *   description: Get All the animals with a pagination group by ten
+ *   parameters:
+ *     - in: query
+ *       name: page
+ *       schema:
+ *         type: integer
+ *       description: Pagination of all animals by 10 documents each 
  *   responses:
  *    200:
  *      description: Get 10 animals from everyone
@@ -34,6 +40,13 @@ router.get('/', getAllAnimalsHandler);
  *  get:
  *   tags:
  *   - animals
+ *   parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: Id of the animal
  *   description: Get Specific Animal By its ID
  *   responses:
  *    200:
@@ -47,6 +60,13 @@ router.get('/:id', getAnimalByIdHandler);
  *  get:
  *   tags:
  *   - animals
+ *   parameters:
+ *     - in: path
+ *       name: name
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: Name of the animal
  *   description: Get Specific Animal By its name
  *   responses:
  *    200:
@@ -60,50 +80,27 @@ router.get('/specific/:name', getAnimalByNameHandler);
  *  get:
  *   tags:
  *   - animals
+ *   parameters:
+ *     - in: path
+ *       name: animalClass
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: By now Mammalia and Aves as the two only classes by now
+ *     - in: query
+ *       name: page
+ *       schema:
+ *         type: integer
+ *       description: Pagination of animals by class 10 documents each 
  *   description: Get all animals by class
  *   responses:
  *    200:
  *      description: Get animals by class 
  */
- router.get('/class/:animalClass', getAnimalByClassHandler);
+router.get('/class/:animalClass', getAnimalByClassHandler);
 
-/**
- * @openapi
- * /api/animal:
- *  post:
- *   tags:
- *   - animals
- *   description: Create a new Animal using the specified info
- *   responses:
- *    200:
- *      description: Craete a new animal
- */
 router.post('/', createAnimalHandler);
-
-/**
- * @openapi
- * /api/animal/:id:
- *  patch:
- *   tags:
- *   - animals
- *   description: Update Animal using its Id to choose the specific animal
- *   responses:
- *    200:
- *      description: Patch animal by id
- */
 router.patch('/:id', updateAnimalHandler);
-
-/**
- * @openapi
- * /api/animal/:id:
- *  delete:
- *   tags:
- *   - animals
- *   description: Delete a documented animal
- *   responses:
- *    200:
- *      description: Deleted animal
- */
 router.delete('/:id', deleteAnimalHandler)
 
 module.exports = router;

@@ -1,6 +1,6 @@
-import { Box, Flex, Button, Container, Text } from "@chakra-ui/react"
+import { Box, Flex, Button, Text } from "@chakra-ui/react"
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
 import useSWR, { Fetcher } from "swr";
 import AnimalCard from "../Components/AnimalCard";

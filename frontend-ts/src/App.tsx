@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 import Animal from './pages/Animal';
 import UserData from './pages/User';
 import Classification from './pages/Classification';
+import InsertAnimal from './pages/InsertAnimal';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/user' element={<UserData />} />
+            <Route path='/contribute' element={<InsertAnimal />} />
             <Route path='/classification'  element={<Classification />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/classification/:class' element={<ClassSearch />} />

@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Container, Skeleton, SkeletonCircle, SkeletonText, Stack, Image, Textarea, FormControl, FormLabel, FormHelperText, Button, Tooltip } from "@chakra-ui/react"
+import { Box, Text, Flex, Container, Skeleton, SkeletonCircle, SkeletonText, Stack, Image, Textarea, FormControl, FormLabel, Button, Tooltip } from "@chakra-ui/react"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getSpecificAnimal, updateAnimalComments } from "../data/animals"
@@ -9,10 +9,12 @@ import { useAuth0 } from "@auth0/auth0-react"
 
 const Animal = () => {
   const { animalname } = useParams()
+  const [newComment, setNewComment] = useState<boolean>(false)
   const [animal, setAnimal] = useState<AnimalData>()
   const {user, isAuthenticated} = useAuth0()
   const handleNewComment = (e:any) => {
     e.preventDefault()
+    setNewComment(true)
     if(!e.target.comment.value){
       return;
     }
@@ -32,7 +34,10 @@ const Animal = () => {
         setAnimal(res.data)
       }
     )
-  },[])
+    if(newComment){
+      setNewComment(false)
+    }
+  }, [newComment, animalname])
 
   return (
     <Flex flexDirection={{ base:'column', md: 'row' }}>
