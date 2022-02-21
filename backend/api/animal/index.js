@@ -136,7 +136,7 @@ router.post('/',authorizeAccessToken, checkCreatePermissions, createAnimalHandle
  *    200:
  *      description: Updated animal
  */
-router.patch('/:id',authorizeAccessToken, checkCreatePermissions, updateAnimalHandler);
+router.patch('/:id',authorizeAccessToken, updateAnimalHandler);
 
 /**
  * @openapi
