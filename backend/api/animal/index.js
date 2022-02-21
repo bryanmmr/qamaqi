@@ -13,6 +13,12 @@ const {
     deleteAnimalHandler,
 } = require('./animal.controller');
 
+const {
+    authorizeAccessToken,
+    checkCreatePermissions,
+    checkPermissions
+} = require('../role/role.service')
+
 const router = Router();
 
 /**
@@ -99,8 +105,57 @@ router.get('/specific/:name', getAnimalByNameHandler);
  */
 router.get('/class/:animalClass', getAnimalByClassHandler);
 
-router.post('/', createAnimalHandler);
-router.patch('/:id', updateAnimalHandler);
-router.delete('/:id', deleteAnimalHandler)
+/**
+ * @openapi
+ * /api/animal/:
+ *  post:
+ *   tags:
+ *   - animals
+ *   description: Create new Animal - Require authorized token to create new entries
+ *   responses:
+ *    201:
+ *      description: Created animal
+ */
+router.post('/',authorizeAccessToken, checkCreatePermissions, createAnimalHandler);
+
+/**
+ * @openapi
+ * /api/animal/:id:
+ *  patch:
+ *   tags:
+ *   - animals
+ *   parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: Patch element by id
+ *   description: Update Animal - Require authorized token to update the entry
+ *   responses:
+ *    200:
+ *      description: Updated animal
+ */
+router.patch('/:id',authorizeAccessToken, checkCreatePermissions, updateAnimalHandler);
+
+/**
+ * @openapi
+ * /api/animal/:id:
+ *  delete:
+ *   tags:
+ *   - animals
+ *   parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: Delete element by id
+ *   description: Delete Animal - Require authorized token to delete the entry
+ *   responses:
+ *    200:
+ *      description: Deleted animal
+ */
+router.delete('/:id',authorizeAccessToken, checkCreatePermissions, deleteAnimalHandler)
 
 module.exports = router;
