@@ -5,6 +5,10 @@ interface imgProps {
   image: Blob
   alt: string,
 }
+interface newImgProps {
+  src: string,
+  alt: string,
+}
 interface sciClassProp {
   [key:string] : string
 } //Replace any for this statement when correct it
@@ -14,34 +18,45 @@ export interface animalProps {
   scientificName: string,
   conservationStatus: string,
   scientificClassification: Array<any>,
-  img: imgProps,
+  img: newImgProps,
   animalInfo: string,
 }
+const toBase64 = (file:Blob, callback:Function) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => callback(reader.result);
+    reader.onerror = error => console.error(error);
+  };
 
-export const uploadImage = async ({folder, image, alt}:imgProps) => {
+
+export const uploadImage = async ({folder, image, alt}:imgProps, callback:Function) => {
   const token = sessionStorage.getItem('token')
-  const imgInfo = {
-    folder: folder,
-    image: image,
-    alt: alt
-  }
-  const response = await axios.post<imgProps>(`${process.env.REACT_APP_BACKEND_URL}/upload/image`, {
-    data: JSON.stringify(imgInfo),
-    headers: {
-      'Authorization' : `Bearer ${token}`
+
+  await toBase64(image, async (res:any) => {
+    const imgInfo = {
+      folder: folder,
+      image: res,
+      alt: alt
+    }
+    const response = await axios.post<imgProps>(`${process.env.REACT_APP_BACKEND_URL}/upload/image`,
+    imgInfo,
+    {
+      headers: {
+        Authorization : `Bearer ${token}`
     }
   });
-  return response
+  callback(response)
+  })
 }
 
 export const uploadAnimalData = async (animalInfo:animalProps) => {
   const token = sessionStorage.getItem('token')
-  const response = await axios.post<animalProps>(`${process.env.REACT_APP_BACKEND_URL}/api/animal`, {
-    data: JSON.stringify(animalInfo),
-    headers: {
+  const response = await axios.post<animalProps>(`${process.env.REACT_APP_BACKEND_URL}/api/animal`,
+    animalInfo,
+    {
+      headers: {
       'Authorization' : `Bearer ${token}`
     }
   });
   return response
-
 }

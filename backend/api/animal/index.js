@@ -136,7 +136,7 @@ router.post('/',authorizeAccessToken, checkCreatePermissions, createAnimalHandle
  *    200:
  *      description: Updated animal
  */
-router.patch('/:id', updateAnimalHandler);
+router.patch('/:id',authorizeAccessToken, checkPermissions, updateAnimalHandler);
 
 /**
  * @openapi
@@ -156,6 +156,6 @@ router.patch('/:id', updateAnimalHandler);
  *    200:
  *      description: Deleted animal
  */
-router.delete('/:id',authorizeAccessToken, checkCreatePermissions, deleteAnimalHandler)
+router.delete('/:id',authorizeAccessToken, checkPermissions, deleteAnimalHandler)
 
 module.exports = router;

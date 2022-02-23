@@ -58,21 +58,25 @@ const InsertAnimal: React.FC = () => {
       { Genus   : genus },
       { Species : species },
     ];
-    uploadImage(imgInfo).then((res)=>{
-        const animalInfo:animalProps = {
-          name : name,
-          link : '',
-          scientificName: sciname,
-          conservationStatus: status,
-          scientificClassification: scientificClassification!,
-          img: res.data,
-          animalInfo: paragraph,
-        }
-        uploadAnimalData(animalInfo)
+
+    uploadImage(imgInfo, (response:any) => {
+      const imgData = {
+        src: response.data.secure_url,
+        alt: response.data.context.custom.alt,
       }
-    )
-
-
+      const animalInfo:animalProps = {
+        name : name,
+        link : '',
+        scientificName: sciname,
+        conservationStatus: status,
+        scientificClassification: scientificClassification!,
+        img: imgData,
+        animalInfo: paragraph,
+      }
+      uploadAnimalData(animalInfo).then(res => {
+        console.log(res.status)
+      })
+    })
   }
   return (
     <Container>
@@ -97,37 +101,37 @@ const InsertAnimal: React.FC = () => {
                 </FormControl>
                 <FormLabel htmlFor='email'>Fill the scientific information of the specimen</FormLabel>
                 <Flex wrap={'wrap'} gap={'1rem'} justifyContent={'space-between'}>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Phylum' />
                       <Input id='phylum' type='text' placeholder='phylum' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Class' />
                       <Input id='classification' type='text' placeholder='class' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Order' />
                       <Input id='order' type='text' placeholder='order' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Family' />
                       <Input id='family' type='text' placeholder='family' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Genus' />
                       <Input id='genus' type='text' placeholder='genus' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
                       <InputLeftAddon children='Species' />
                       <Input id='species' type='text' placeholder='species' />
