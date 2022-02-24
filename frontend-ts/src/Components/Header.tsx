@@ -17,10 +17,16 @@ import { Logo } from './../assets/Logo'
 import { Link } from "react-router-dom";
 import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux"
 import { fetchRole } from "../store/actions/userActions";
+interface IRootState {
+  user: {},
+  mod: boolean
+}
 
 const Header: React.FC = (): JSX.Element => {
   const dispatch : Dispatch<any> = useDispatch()
+  const moderador = useSelector((state:IRootState) => state);
   const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   useEffect(() => {
     const setToken = async () => {
@@ -57,6 +63,13 @@ const Header: React.FC = (): JSX.Element => {
                   <Link to='/user'>
                     <MenuItem>My Information</MenuItem>
                   </Link>
+                  {
+                    moderador?.mod?
+                    <Link to='/dashboard'>
+                      <MenuItem>Dashboard</MenuItem>
+                    </Link>:
+                    <></>
+                  }
                   <MenuItem
                     onClick={() => logout({ returnTo: window.location.origin })}>
                       Sign Out

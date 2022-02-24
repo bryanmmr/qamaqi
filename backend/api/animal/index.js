@@ -8,6 +8,7 @@ const {
     createAnimalHandler,
     getAnimalByIdHandler,
     getAnimalByNameHandler,
+    searchAnimalByNameHandler,
     getAnimalByClassHandler,
     updateAnimalHandler,
     deleteAnimalHandler,
@@ -79,6 +80,7 @@ router.get('/:id', getAnimalByIdHandler);
  *      description: Get animal by name 
  */
 router.get('/specific/:name', getAnimalByNameHandler);
+router.get('/search/:query', searchAnimalByNameHandler);
 
 /**
  * @openapi

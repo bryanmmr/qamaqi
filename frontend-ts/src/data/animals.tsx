@@ -24,6 +24,11 @@ export const getSpecificAnimal = async (name:string) => {
   return response
 }
 
+export const searchSpecificAnimal = async (name:string) => {
+  const response = await axios.get<Array<AnimalData>>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/search/${name}`);
+  return response
+}
+
 export const updateAnimalComments = async (animalId:string, comment:AnimalType) => {
   const token = sessionStorage.getItem('token')
   const animal = getAnimal(animalId)
