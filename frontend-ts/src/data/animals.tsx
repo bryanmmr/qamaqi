@@ -24,26 +24,42 @@ export const getSpecificAnimal = async (name:string) => {
   return response
 }
 
+export const searchSpecificAnimal = async (name:string) => {
+  const response = await axios.get<Array<AnimalData>>(`${process.env.REACT_APP_BACKEND_URL}/api/animal/search/${name}`);
+  return response
+}
+
 export const updateAnimalComments = async (animalId:string, comment:AnimalType) => {
+  const token = sessionStorage.getItem('token')
   const animal = getAnimal(animalId)
   const animalRefresehd = animal.then(data => {
     data.data.comments.push(comment)
     return data.data
   })
   return await animalRefresehd.then(data => {
-    const response = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/api/animal/${animalId}`, data)
+    const response = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/api/animal/${animalId}`,
+      data, {
+      headers : {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return response
   })
 }
 
 export const deleteAnimalComments = async (animalId:string, index:number) => {
   const animal = getAnimal(animalId)
+  const token = sessionStorage.getItem('token')
   const animalRefresehd = animal.then(data => {
     data.data.comments.splice(index,1)
     return data.data
   })
   return await animalRefresehd.then(data => {
-    const response = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/api/animal/${animalId}`, data)
+    const response = axios.patch(`${process.env.REACT_APP_BACKEND_URL}/api/animal/${animalId}`, data, {
+      headers : {
+        Authorization: `Bearer ${token}`
+      }
+    })
     return response
   })
 }

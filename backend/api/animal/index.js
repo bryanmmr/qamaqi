@@ -8,6 +8,7 @@ const {
     createAnimalHandler,
     getAnimalByIdHandler,
     getAnimalByNameHandler,
+    searchAnimalByNameHandler,
     getAnimalByClassHandler,
     updateAnimalHandler,
     deleteAnimalHandler,
@@ -79,6 +80,7 @@ router.get('/:id', getAnimalByIdHandler);
  *      description: Get animal by name 
  */
 router.get('/specific/:name', getAnimalByNameHandler);
+router.get('/search/:query', searchAnimalByNameHandler);
 
 /**
  * @openapi
@@ -136,7 +138,7 @@ router.post('/',authorizeAccessToken, checkCreatePermissions, createAnimalHandle
  *    200:
  *      description: Updated animal
  */
-router.patch('/:id', updateAnimalHandler);
+router.patch('/:id',authorizeAccessToken, checkPermissions, updateAnimalHandler);
 
 /**
  * @openapi
@@ -156,6 +158,6 @@ router.patch('/:id', updateAnimalHandler);
  *    200:
  *      description: Deleted animal
  */
-router.delete('/:id',authorizeAccessToken, checkCreatePermissions, deleteAnimalHandler)
+router.delete('/:id',authorizeAccessToken, checkPermissions, deleteAnimalHandler)
 
 module.exports = router;

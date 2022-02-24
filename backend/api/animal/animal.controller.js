@@ -2,6 +2,7 @@ const {
   getAllAnimals,
   getSpecificAnimal,
   getSpecificAnimalByName,
+  searchSpecificAnimalByName,
   getAllAnimalsByClass,
   createAnimal,
   updateAnimal,
@@ -42,6 +43,19 @@ async function getAnimalByNameHandler(req, res){
       return res.status(200).json(animal);
     }
     return res.status(404).json({message: `animal not found with name=${name}`})
+  } catch (error) {
+    return res.status(500).json({error: error.message})
+  }
+}
+
+async function searchAnimalByNameHandler(req, res){
+  const { query } = req.params
+  try {
+    const animal = await searchSpecificAnimalByName(query);
+    if(animal){
+      return res.status(200).json(animal);
+    }
+    return res.status(404).json({message: `animal not found with name=${query}`})
   } catch (error) {
     return res.status(500).json({error: error.message})
   }
@@ -104,6 +118,7 @@ module.exports = {
   getAllAnimalsHandler,
   getAnimalByIdHandler,
   getAnimalByNameHandler,
+  searchAnimalByNameHandler,
   getAnimalByClassHandler,
   createAnimalHandler,
   updateAnimalHandler,

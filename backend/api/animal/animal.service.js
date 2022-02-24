@@ -27,6 +27,15 @@ async function getSpecificAnimalByName(name) {
     }
 }
 
+async function searchSpecificAnimalByName(name) {
+    try {
+        const animal = await Animal.find({name : {$regex : `.*${name}.*`, $options: 'i'}}).limit(10);
+        return animal
+    } catch(error) {
+        throw error;
+    }
+}
+
 async function getAllAnimalsByClass(animalClass, page){
     try {
         const animals = await Animal.find({ "scientificClassification.Class" : animalClass}).limit(10).skip(10*page)
@@ -68,6 +77,7 @@ module.exports = {
     getAllAnimals,
     getSpecificAnimal,
     getSpecificAnimalByName,
+    searchSpecificAnimalByName,
     getAllAnimalsByClass,
     createAnimal,
     updateAnimal,

@@ -58,21 +58,25 @@ const InsertAnimal: React.FC = () => {
       { Genus   : genus },
       { Species : species },
     ];
-    uploadImage(imgInfo).then((res)=>{
-        const animalInfo:animalProps = {
-          name : name,
-          link : '',
-          scientificName: sciname,
-          conservationStatus: status,
-          scientificClassification: scientificClassification!,
-          img: res.data,
-          animalInfo: paragraph,
-        }
-        uploadAnimalData(animalInfo)
+
+    uploadImage(imgInfo, (response:any) => {
+      const imgData = {
+        src: response.data.secure_url,
+        alt: response.data.context.custom.alt,
       }
-    )
-
-
+      const animalInfo:animalProps = {
+        name : name,
+        link : '',
+        scientificName: sciname,
+        conservationStatus: status,
+        scientificClassification: scientificClassification!,
+        img: imgData,
+        animalInfo: paragraph,
+      }
+      uploadAnimalData(animalInfo).then(res => {
+        console.log(res.status)
+      })
+    })
   }
   return (
     <Container>
@@ -81,10 +85,10 @@ const InsertAnimal: React.FC = () => {
           <Text fontSize={'2rem'} fontWeight={'700'} align={'center'}>Want to Contribute?</Text>
           <Button onClick={verifyCreatePermission}>Verify if your account is allowed</Button>
         </Flex>:
-        <Flex justifyContent={'center'} flexDir={'column'}>
+        <Flex justifyContent={'center'} flexDir={'column'} >
            <Text fontSize={'1rem'} fontWeight={'700'} align={'center'}>Fill the next form to add a new specimen to our database</Text>
            <Container>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} >
                 <FormControl>
                   <FormLabel htmlFor='name'>Fill the name of the specimen</FormLabel>
                   <Input id='name' type='text' required/>
@@ -97,39 +101,39 @@ const InsertAnimal: React.FC = () => {
                 </FormControl>
                 <FormLabel htmlFor='email'>Fill the scientific information of the specimen</FormLabel>
                 <Flex wrap={'wrap'} gap={'1rem'} justifyContent={'space-between'}>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Phylum' />
+                      <InputLeftAddon minW={'30%'} children='Phylum' />
                       <Input id='phylum' type='text' placeholder='phylum' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Class' />
+                      <InputLeftAddon minW={'30%'} children='Class' />
                       <Input id='classification' type='text' placeholder='class' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Order' />
+                      <InputLeftAddon minW={'30%'} children='Order' />
                       <Input id='order' type='text' placeholder='order' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Family' />
+                      <InputLeftAddon minW={'30%'} children='Family' />
                       <Input id='family' type='text' placeholder='family' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Genus' />
+                      <InputLeftAddon minW={'30%'} children='Genus' />
                       <Input id='genus' type='text' placeholder='genus' />
                     </InputGroup>
                   </FormControl>
-                  <FormControl width={'45%'}>
+                  <FormControl width={{base: '100%',md:'45%'}}>
                     <InputGroup>
-                      <InputLeftAddon children='Species' />
+                      <InputLeftAddon minW={'30%'} children='Species' />
                       <Input id='species' type='text' placeholder='species' />
                     </InputGroup>
                   </FormControl>
